@@ -5,6 +5,7 @@ public class IntroduccionController : MonoBehaviour
 {
     public GameObject panelPausa;
     public GameObject panelControles;
+    public GameObject misionesPanel; 
 
     private bool juegoPausado = false;
 
@@ -15,6 +16,9 @@ public class IntroduccionController : MonoBehaviour
 
         if (panelControles != null)
             panelControles.SetActive(false);
+
+        if (misionesPanel != null)
+            misionesPanel.SetActive(true); // Mostrar al inicio
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -30,40 +34,52 @@ public class IntroduccionController : MonoBehaviour
         }
     }
 
-    // Botón Pausar
     public void TogglePausa()
     {
         juegoPausado = !juegoPausado;
 
         if (juegoPausado)
         {
-            panelPausa.SetActive(true);
+            if (panelPausa != null)
+                panelPausa.SetActive(true);
+            if (misionesPanel != null)
+                misionesPanel.SetActive(false); // Ocultar misiones
+
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Time.timeScale = 0f;
         }
         else
         {
-            panelPausa.SetActive(false);
-            panelControles.SetActive(false);
+            if (panelPausa != null)
+                panelPausa.SetActive(false);
+            if (panelControles != null)
+                panelControles.SetActive(false);
+            if (misionesPanel != null)
+                misionesPanel.SetActive(true); // Volver a mostrar misiones
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1f;
         }
     }
 
-    // Botón CONTINUE
     public void ContinuarJuego()
     {
         juegoPausado = false;
-        panelPausa.SetActive(false);
-        panelControles.SetActive(false);
+
+        if (panelPausa != null)
+            panelPausa.SetActive(false);
+        if (panelControles != null)
+            panelControles.SetActive(false);
+        if (misionesPanel != null)
+            misionesPanel.SetActive(true); // Asegurar que se muestra
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Time.timeScale = 1f;
     }
 
-    // Botón CONTROLS dentro del panel de pausa
     public void MostrarControles()
     {
         if (panelControles != null)
@@ -72,7 +88,6 @@ public class IntroduccionController : MonoBehaviour
             panelPausa.SetActive(false);
     }
 
-    // Botón de regresar desde CONTROLS
     public void CerrarControles()
     {
         if (panelControles != null)
@@ -81,16 +96,14 @@ public class IntroduccionController : MonoBehaviour
             panelPausa.SetActive(true);
     }
 
-    // Botón MENU (volver al menú principal)
     public void IrAlMenuPrincipal()
     {
-        Time.timeScale = 1f; // Por si estaba pausado
+        Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        SceneManager.LoadScene("Menu"); // Asegúrate de que la escena se llame exactamente "Menu"
+        SceneManager.LoadScene("Menu");
     }
 
-    // Botón EXIT (salir del juego)
     public void SalirDelJuego()
     {
         Application.Quit();

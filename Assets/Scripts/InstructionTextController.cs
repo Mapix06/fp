@@ -3,46 +3,58 @@ using TMPro;
 
 public class InstructionTextController : MonoBehaviour
 {
-    // Campo visible en el Inspector para arrastrar el objeto TextMeshPro
     public TextMeshProUGUI instructionText;
+    public GameObject instruccionesPanel;
+    public GameObject misionesPanel;
 
     private int currentIndex = 0;
 
-    // Lista de instrucciones que se mostrarán una por una
     private string[] instructions = new string[]
     {
-        "Usa WASD para moverte.",
+        "Usa W para moverte.",
+        "Usa W + Shift para correr",
+        "Usa A y D para mover la cámara",
         "Presiona Espacio para saltar.",
         "Pulsa E para interactuar con objetos.",
+        "Recolecta los mapas en el camino",
         "Encuentra la llave escondida en las ruinas.",
         "¡Buena suerte, aventurero!"
     };
 
     void Start()
     {
-        // Mostrar la primera instrucción al iniciar
         if (instructionText != null && instructions.Length > 0)
         {
             instructionText.text = instructions[currentIndex];
+        }
+
+        if (misionesPanel != null)
+        {
+            misionesPanel.SetActive(false);
         }
     }
 
     void Update()
     {
-        // Detectar tecla Enter (Return) o Enter del teclado numérico
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            // Avanzar a la siguiente instrucción
             currentIndex++;
 
             if (currentIndex >= instructions.Length)
             {
-                // Opcional: reiniciar o mantener el último mensaje
-                // currentIndex = 0; // Si quieres que reinicie
-                currentIndex = instructions.Length - 1; // Para mantener el último
+                if (instruccionesPanel != null)
+                {
+                    instruccionesPanel.SetActive(false);
+                }
+
+                if (misionesPanel != null)
+                {
+                    misionesPanel.SetActive(true);
+                }
+
+                return;
             }
 
-            // Actualizar el texto en pantalla
             instructionText.text = instructions[currentIndex];
         }
     }
