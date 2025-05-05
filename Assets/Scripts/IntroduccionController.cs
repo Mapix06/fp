@@ -1,24 +1,48 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class IntroduccionController : MonoBehaviour
 {
+    [Header("Instrucciones")]
+    public TextMeshProUGUI instructionText;
+    public GameObject instruccionesPanel;
+
+    [Header("Pausa y UI")]
     public GameObject panelPausa;
     public GameObject panelControles;
-    public GameObject misionesPanel; 
+
+    [Header("Referencia UI Controller")]
+    public UIController uiController;  // ? referencia al script UIController
+
+    [Header("Transición de escena")]
+    public string siguienteEscena = "CuevaPenumbra";
 
     private bool juegoPausado = false;
+    private int currentIndex = 0;
+
+    private string[] instructions = new string[]
+    {
+        "Usa W para moverte.",
+        "Usa W + Shift para correr",
+        "Usa A y D para mover la cámara",
+        "Presiona Espacio para saltar.",
+        "Pulsa E para interactuar con objetos.",
+        "Recolecta los mapas en el camino",
+        "Encuentra la llave escondida en las ruinas.",
+        "¡Buena suerte, aventurero!"
+    };
 
     void Start()
     {
-        if (panelPausa != null)
-            panelPausa.SetActive(false);
+        if (instructionText != null && instructions.Length > 0)
+        {
+            instructionText.text = instructions[currentIndex];
+        }
 
-        if (panelControles != null)
-            panelControles.SetActive(false);
-
-        if (misionesPanel != null)
-            misionesPanel.SetActive(true); // Mostrar al inicio
+        instruccionesPanel?.SetActive(true);
+        panelPausa?.SetActive(false);
+        panelControles?.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -28,6 +52,23 @@ public class IntroduccionController : MonoBehaviour
 
     void Update()
     {
+        // Instrucciones
+        if (instruccionesPanel.activeSelf &&
+            (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
+        {
+            currentIndex++;
+            if (currentIndex >= instructions.Length)
+            {
+                instruccionesPanel.SetActive(false);
+                uiController?.MostrarPanelMisiones(); // <- se muestra el panel de misiones
+            }
+            else
+            {
+                instructionText.text = instructions[currentIndex];
+            }
+        }
+
+        // Pausa
         if (Input.GetKeyDown(KeyCode.P))
         {
             TogglePausa();
@@ -38,43 +79,19 @@ public class IntroduccionController : MonoBehaviour
     {
         juegoPausado = !juegoPausado;
 
-        if (juegoPausado)
-        {
-            if (panelPausa != null)
-                panelPausa.SetActive(true);
-            if (misionesPanel != null)
-                misionesPanel.SetActive(false); // Ocultar misiones
+        panelPausa?.SetActive(juegoPausado);
+        panelControles?.SetActive(false);
 
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            if (panelPausa != null)
-                panelPausa.SetActive(false);
-            if (panelControles != null)
-                panelControles.SetActive(false);
-            if (misionesPanel != null)
-                misionesPanel.SetActive(true); // Volver a mostrar misiones
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            Time.timeScale = 1f;
-        }
+        Cursor.lockState = juegoPausado ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = juegoPausado;
+        Time.timeScale = juegoPausado ? 0f : 1f;
     }
 
     public void ContinuarJuego()
     {
         juegoPausado = false;
-
-        if (panelPausa != null)
-            panelPausa.SetActive(false);
-        if (panelControles != null)
-            panelControles.SetActive(false);
-        if (misionesPanel != null)
-            misionesPanel.SetActive(true); // Asegurar que se muestra
-
+        panelPausa?.SetActive(false);
+        panelControles?.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         Time.timeScale = 1f;
@@ -82,18 +99,14 @@ public class IntroduccionController : MonoBehaviour
 
     public void MostrarControles()
     {
-        if (panelControles != null)
-            panelControles.SetActive(true);
-        if (panelPausa != null)
-            panelPausa.SetActive(false);
+        panelControles?.SetActive(true);
+        panelPausa?.SetActive(false);
     }
 
     public void CerrarControles()
     {
-        if (panelControles != null)
-            panelControles.SetActive(false);
-        if (panelPausa != null)
-            panelPausa.SetActive(true);
+        panelControles?.SetActive(false);
+        panelPausa?.SetActive(true);
     }
 
     public void IrAlMenuPrincipal()
@@ -107,5 +120,10 @@ public class IntroduccionController : MonoBehaviour
     public void SalirDelJuego()
     {
         Application.Quit();
+    }
+
+    public void CambiarEscena()
+    {
+        SceneManager.LoadScene(siguienteEscena);
     }
 }
