@@ -6,7 +6,7 @@ public class EstatuaRotable : MonoBehaviour
     [Header("Configuración")]
     [Tooltip("ID único (0-3) que determina su posición en la solución")]
     public int estatuaID = 0;
-    [Range(1f, 5f)] public float detectionRadius = 2.5f;
+    [Range(1f, 10f)] public float detectionRadius = 2.5f;
     public KeyCode interactionKey = KeyCode.E;
 
     [Header("Feedback")]
