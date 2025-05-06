@@ -393,7 +393,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &415058541
 Transform:
   m_ObjectHideFlags: 0
@@ -432,7 +432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   estatuaID: 1
-  detectionRadius: 5
+  detectionRadius: 7.17
   interactionKey: 101
   rotationParticles: {fileID: 0}
   rotationSound: {fileID: 0}
@@ -6235,7 +6235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   estatuaID: 0
-  detectionRadius: 5
+  detectionRadius: 6.3
   interactionKey: 101
   rotationParticles: {fileID: 0}
   rotationSound: {fileID: 0}
@@ -6296,7 +6296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   estatuaID: 3
-  detectionRadius: 5
+  detectionRadius: 8.29
   interactionKey: 101
   rotationParticles: {fileID: 0}
   rotationSound: {fileID: 0}
@@ -6706,7 +6706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2011200121
 Transform:
   m_ObjectHideFlags: 0
@@ -6779,7 +6779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   estatuaID: 2
-  detectionRadius: 5
+  detectionRadius: 6.69
   interactionKey: 101
   rotationParticles: {fileID: 0}
   rotationSound: {fileID: 0}
