@@ -8,17 +8,12 @@ public class IntroduccionController : MonoBehaviour
     public TextMeshProUGUI instructionText;
     public GameObject instruccionesPanel;
 
-    [Header("Pausa y UI")]
-    public GameObject panelPausa;
-    public GameObject panelControles;
-
     [Header("Referencia UI Controller")]
-    public UIController uiController;  // ? referencia al script UIController
+    public UIController uiController;
 
     [Header("Transición de escena")]
     public string siguienteEscena = "CuevaPenumbra";
 
-    private bool juegoPausado = false;
     private int currentIndex = 0;
 
     private string[] instructions = new string[]
@@ -41,18 +36,14 @@ public class IntroduccionController : MonoBehaviour
         }
 
         instruccionesPanel?.SetActive(true);
-        panelPausa?.SetActive(false);
-        panelControles?.SetActive(false);
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
         Time.timeScale = 1f;
     }
 
     void Update()
     {
-        // Instrucciones
         if (instruccionesPanel.activeSelf &&
             (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
         {
@@ -60,7 +51,7 @@ public class IntroduccionController : MonoBehaviour
             if (currentIndex >= instructions.Length)
             {
                 instruccionesPanel.SetActive(false);
-                uiController?.MostrarPanelMisiones(); // <- se muestra el panel de misiones
+                uiController?.MostrarPanelMisiones();
             }
             else
             {
@@ -68,58 +59,10 @@ public class IntroduccionController : MonoBehaviour
             }
         }
 
-        // Pausa
         if (Input.GetKeyDown(KeyCode.P))
         {
-            TogglePausa();
+            uiController?.TogglePausa();
         }
-    }
-
-    public void TogglePausa()
-    {
-        juegoPausado = !juegoPausado;
-
-        panelPausa?.SetActive(juegoPausado);
-        panelControles?.SetActive(false);
-
-        Cursor.lockState = juegoPausado ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = juegoPausado;
-        Time.timeScale = juegoPausado ? 0f : 1f;
-    }
-
-    public void ContinuarJuego()
-    {
-        juegoPausado = false;
-        panelPausa?.SetActive(false);
-        panelControles?.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        Time.timeScale = 1f;
-    }
-
-    public void MostrarControles()
-    {
-        panelControles?.SetActive(true);
-        panelPausa?.SetActive(false);
-    }
-
-    public void CerrarControles()
-    {
-        panelControles?.SetActive(false);
-        panelPausa?.SetActive(true);
-    }
-
-    public void IrAlMenuPrincipal()
-    {
-        Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        SceneManager.LoadScene("Menu");
-    }
-
-    public void SalirDelJuego()
-    {
-        Application.Quit();
     }
 
     public void CambiarEscena()

@@ -9,18 +9,26 @@ public class UIController : MonoBehaviour
     public GameObject panelMisiones;
     public TextMeshProUGUI misionesText;
 
+    [Header("Pausa y controles")]
+    public GameObject panelPausa;
+    public GameObject panelControles;
+
     private bool panelVisible = false;
+    private bool juegoPausado = false;
 
     void Start()
     {
         if (panelMisiones != null)
-            panelMisiones.SetActive(false); // Empieza oculto
+            panelMisiones.SetActive(false);
 
         string escenaActual = SceneManager.GetActiveScene().name;
         List<string> misiones = ObtenerMisionesPorEscena(escenaActual);
 
         if (misionesText != null)
             misionesText.text = FormatearMisiones(misiones);
+
+        if (panelPausa != null) panelPausa.SetActive(false);
+        if (panelControles != null) panelControles.SetActive(false);
     }
 
     void Update()
@@ -80,4 +88,52 @@ public class UIController : MonoBehaviour
         }
     }
 
+    // === Métodos de Pausa y Controles ===
+
+    public void TogglePausa()
+    {
+        juegoPausado = !juegoPausado;
+
+        panelPausa?.SetActive(juegoPausado);
+        panelControles?.SetActive(false);
+
+        Cursor.lockState = juegoPausado ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = juegoPausado;
+        Time.timeScale = juegoPausado ? 0f : 1f;
+    }
+
+    public void ContinuarJuego()
+    {
+        juegoPausado = false;
+        panelPausa?.SetActive(false);
+        panelControles?.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Time.timeScale = 1f;
+    }
+
+    public void MostrarControles()
+    {
+        panelControles?.SetActive(true);
+        panelPausa?.SetActive(false);
+    }
+
+    public void CerrarControles()
+    {
+        panelControles?.SetActive(false);
+        panelPausa?.SetActive(true);
+    }
+
+    public void IrAlMenuPrincipal()
+    {
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void SalirDelJuego()
+    {
+        Application.Quit();
+    }
 }

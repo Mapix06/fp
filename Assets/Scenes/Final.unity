@@ -366,6 +366,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 215645707}
   m_CullTransparentMesh: 1
+--- !u!1 &238470562 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5545366681366831837, guid: 5d06ad9e5d476414eb372db938518576,
+    type: 3}
+  m_PrefabInstance: {fileID: 877661073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &328988214 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5686786988464387245, guid: c28926b9c1e32ed41917f85ad038aef5,
@@ -5558,6 +5564,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3022958897704130736, guid: 5d06ad9e5d476414eb372db938518576,
+        type: 3}
+      propertyPath: panelPausa
+      value: 
+      objectReference: {fileID: 238470562}
     - target: {fileID: -3022958897704130736, guid: 5d06ad9e5d476414eb372db938518576,
         type: 3}
       propertyPath: misionesText
