@@ -6235,7 +6235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   estatuaID: 0
-  detectionRadius: 6.3
+  detectionRadius: 8
   interactionKey: 101
   rotationParticles: {fileID: 0}
   rotationSound: {fileID: 0}

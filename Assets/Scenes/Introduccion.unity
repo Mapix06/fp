@@ -2063,59 +2063,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c96440bcd9ed0479bf5a61b79e8224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 30
+  walkSpeed: 65
   runSpeed: 100
   speedRotation: 200
---- !u!54 &260044039
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 260044037}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
---- !u!136 &260044040
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 260044037}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.3443377
-  m_Height: 19.552603
-  m_Direction: 1
-  m_Center: {x: 0, y: 9.576356, z: 0}
 --- !u!4 &260044042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2b382b91b2229a4499904b64ed49b529,
@@ -2141,13 +2091,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_Height: 21
+  m_Radius: 2.03
+  m_SlopeLimit: 60
+  m_StepOffset: 0
   m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_MinMoveDistance: 0
+  m_Center: {x: 0, y: 9.93, z: 0}
 --- !u!1001 &260606478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3172,6 +3122,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: indiana1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2b382b91b2229a4499904b64ed49b529,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 2b382b91b2229a4499904b64ed49b529,
         type: 3}
       propertyPath: m_Controller
@@ -3188,19 +3143,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2b382b91b2229a4499904b64ed49b529,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 260044040}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2b382b91b2229a4499904b64ed49b529,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 260044039}
+      addedObject: {fileID: 260044044}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2b382b91b2229a4499904b64ed49b529,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 260044038}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2b382b91b2229a4499904b64ed49b529,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 260044044}
   m_SourcePrefab: {fileID: 100100000, guid: 2b382b91b2229a4499904b64ed49b529, type: 3}
 --- !u!1 &411743557
 GameObject:
@@ -5529,9 +5476,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cce03931a2d49f439ca13742ab1dfc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instructionText: {fileID: 1358016640}
-  instruccionesPanel: {fileID: 1604407698}
-  misionesPanel: {fileID: 453772753}
 --- !u!1001 &878440428
 PrefabInstance:
   m_ObjectHideFlags: 0
