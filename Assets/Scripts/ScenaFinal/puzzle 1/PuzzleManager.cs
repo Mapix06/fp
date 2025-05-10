@@ -4,14 +4,19 @@ using UnityEngine;
 public class PuzzleManager : MonoBehaviour
 {
     [Header("Puzzle Configuration")]
-    [Tooltip("El orden correcto en que se deben presionar los botones (IDs)")]
     public int[] correctSequence = { 1, 3, 2, 4 };
 
     private List<int> playerSequence = new List<int>();
     private List<ButtonInteractable> botonesRegistrados = new List<ButtonInteractable>();
     private bool puzzleSolved = false;
 
-    // Llamado por cada botón al Start
+    private PuzzleTimerManager timerManager;
+
+    void Start()
+    {
+        timerManager = FindObjectOfType<PuzzleTimerManager>();
+    }
+
     public void RegistrarBoton(ButtonInteractable boton)
     {
         if (!botonesRegistrados.Contains(boton))
@@ -20,10 +25,12 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
-    // Llamado por cada botón cuando se presiona
     public void ButtonPressed(int buttonID)
     {
         if (puzzleSolved) return;
+
+        // Iniciar cronómetro al primer clic
+        timerManager?.IniciarCronometro();
 
         playerSequence.Add(buttonID);
 
@@ -33,6 +40,7 @@ public class PuzzleManager : MonoBehaviour
             {
                 puzzleSolved = true;
                 Debug.Log("¡Felicidades! Pasa al siguiente puzzle.");
+                timerManager?.PuzzleCompletado();  // Marca como resuelto, quita 1 vida y guarda tiempo
             }
         }
         else

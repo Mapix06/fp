@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events; // Añade esta línea para UnityEvent
+using UnityEngine.Events;
 
 public class PuzzleRotacionManager : MonoBehaviour
 {
@@ -21,7 +21,7 @@ public class PuzzleRotacionManager : MonoBehaviour
     };
 
     [Header("Eventos al Resolver")]
-    public UnityEvent onPuzzleSolved; // Ahora reconocerá UnityEvent
+    public UnityEvent onPuzzleSolved;
     public GameObject[] objectsToActivate;
     public GameObject[] objectsToDeactivate;
     public AudioClip puzzleSolvedSound;
@@ -30,11 +30,13 @@ public class PuzzleRotacionManager : MonoBehaviour
     private List<EstatuaRotable> estatuas = new List<EstatuaRotable>();
     private bool puzzleResuelto = false;
     private AudioSource audioSource;
+    private PuzzleTimerManager timerManager;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
+        timerManager = FindObjectOfType<PuzzleTimerManager>();
     }
 
     public void RegistrarEstatua(EstatuaRotable estatua)
@@ -74,6 +76,7 @@ public class PuzzleRotacionManager : MonoBehaviour
 
         if (todasCorrectas)
         {
+            timerManager?.PuzzleCompletado(); // Marca victoria y quita vidas
             PuzzleResuelto();
         }
     }
@@ -93,6 +96,7 @@ public class PuzzleRotacionManager : MonoBehaviour
         foreach (GameObject obj in objectsToActivate) obj.SetActive(true);
         foreach (GameObject obj in objectsToDeactivate) obj.SetActive(false);
         FindObjectOfType<FinalBossController>()?.PerderVida();
+        FindObjectOfType<FinalBossController>()?.PerderVida(); // Se quitan 2 vidas
     }
 
     [ContextMenu("Reiniciar Puzzle")]
